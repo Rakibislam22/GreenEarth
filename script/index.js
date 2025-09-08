@@ -17,9 +17,54 @@ const allData = () => {
         })
 }
 
-// activeness on the category and call display function by category
-const activeCategory =  (id) => {
+// add to cart button
+let cratElement = [];
+const addToCart = (price, name) => {
+    const cartContainer = document.getElementById("cart-container");
+    const totalW = document.getElementById("total").innerText;
+
+    cratElement.push(name);
+
+    const newElement = document.createElement("div");
+
+    newElement.innerHTML = ` 
+        
+                    <div class="flex justify-between items-center bg-[#F0FDF4] my-2 rounded-lg p-2">
+                        <div>
+                            <h1 class="font-bold">${name}</h1>
+                            <p class="text-[#1F2937]"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span>${price}</span> x <span id="incri">1</span></p>
+                        </div>
+                        <div>
+                            <button class=" cart-clear">❌</button>
+                        </div>
+                    </div>
+                    
     
+        `;
+
+    cartContainer.appendChild(newElement);
+    let total = parseInt(totalW) + parseInt(price);
+    document.getElementById("total").innerText = total;
+
+
+
+
+    //  remove element from cart
+    const removeBtn = newElement.querySelector(".cart-clear");
+    removeBtn.addEventListener("click", () => {
+        newElement.remove();
+        //cratElement = cratElement.filter(item => item !== name);
+        document.getElementById("total").innerText =
+            (parseInt(document.getElementById("total").innerText) || 0) - price;
+    });
+}
+
+
+
+
+// activeness on the category and call display function by category
+const activeCategory = (id) => {
+
     const categoryContainer = document.getElementById(`category-${id}`);
     const allac = document.querySelectorAll('.active');
     allac.forEach(a => a.classList.remove('active'))
@@ -31,21 +76,22 @@ const activeCategory =  (id) => {
     }
     load(true);
     const c = fetch(`https://openapi.programming-hero.com/api/category/${id}`)
-    .then(res => res.json())
-    .then(data => displayAllData(data.plants));
+        .then(res => res.json())
+        .then(data => displayAllData(data.plants));
 
 
 }
 
 
+
 // loading function
 
 const load = (show) => {
-    if(show){
+    if (show) {
         document.getElementById("load").classList.remove("hidden");
         document.getElementById("allPlants").classList.add("hidden");
     }
-    else{
+    else {
         document.getElementById("load").classList.add("hidden");
         document.getElementById("allPlants").classList.remove("hidden");
     }
@@ -73,19 +119,19 @@ const displayAllData = (plants) => {
                                 <p class="pr-2"><i class="fa-solid fa-bangladeshi-taka-sign"></i>${p.price}</p>
                             </div>
                         </div>
-                        <button class="btn bg-[#15803D] rounded-3xl w-full my-3 text-white">Add to Cart</button>
+                        <button onclick="addToCart(${p.price},'${p.name}')" class="btn bg-[#15803D] rounded-3xl w-full my-3 text-white">Add to Cart</button>
                     </div>
         `
         all_Plants.appendChild(newCata);
         load(false);
     }
-    
+
 }
 
 
 
 //Details in Modals
-document.getElementById('allPlants').addEventListener('click', function(e) {
+document.getElementById('allPlants').addEventListener('click', function (e) {
     if (e.target.classList.contains('forModals')) {
         const a = e.target.innerText;
         const modal = allplants.find(n => n.name.toLowerCase() === a.toLowerCase());

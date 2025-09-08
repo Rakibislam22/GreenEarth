@@ -28,6 +28,11 @@
             font-weight: 400;
             font-style: normal;
         }
+
+        .active{
+            background-color: #15803D;
+            color: white;
+        }
     </style>
 
 </head>
@@ -96,9 +101,8 @@
                     <h2 class="text-xl font-semibold py-3">Categories</h2>
                     <div id="category-container" class="space-y-2 max-sm:flex max-sm:flex-wrap lg:w-50 ">
                         <div>
-                            <p class="hover:bg-[#15803D] hover:text-white p-2 w-full  rounded-md">All Trees</p>
+                            <button id="category-0" onclick="activeCategory(0)" id="allCategory" class="active hover:bg-[#15803D] hover:text-white p-2 w-full  rounded-md lg:text-left">All Trees</button>
                         </div>
-                        
                         
 
                     </div>

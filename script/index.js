@@ -1,24 +1,45 @@
 // fetching the  category
-const categry = () => {
-    fetch('https://openapi.programming-hero.com/api/categories')
-        .then(res => res.json())
-        .then(data => displayCategory(data.categories))
+const categry = async () => {
+    const res = await fetch('https://openapi.programming-hero.com/api/categories');
+    const data = await res.json();
+    displayCategory(data.categories);
 
 }
-
+let allplants;
 // featch all data
 const allData = () => {
     fetch('https://openapi.programming-hero.com/api/plants')
     .then(res =>res.json())
-    .then(data => displayAllData(data.plants))
+    .then(data => {
+        
+        allplants = data.plants;
+
+        displayAllData(data.plants)
+    })
 }
+
+// activeness on the category and call display function by category
+const activeCategory = (id) => {
+    const categoryContainer = document.getElementById(`category-${id}`);
+    const allac = document.querySelectorAll('.active');
+    allac.forEach(a => a.classList.remove('active'))
+    categoryContainer.classList.add('active');
+    if(id === 0){
+        allData();
+    }
+    const innerTT = categoryContainer.innerText.toLowerCase();
+    const c = allplants.filter(a => a.category.toLowerCase() === innerTT)
+    displayAllData(c); 
+
+}
+
 
 // display all data
 const displayAllData = (plants) => {
  
-    const allPlants = document.getElementById('allPlants');
+    const all_Plants = document.getElementById('allPlants');
+    all_Plants.innerHTML = '';
     for(p of plants){
-
         const newCata = document.createElement("div");
         newCata.innerHTML = `
             <div class="rounded-xl p-4 bg-white">
@@ -38,7 +59,7 @@ const displayAllData = (plants) => {
                         <button class="btn bg-[#15803D] rounded-3xl w-full my-3 text-white">Add to Cart</button>
                     </div>
         `
-        allPlants.appendChild(newCata);
+        all_Plants.appendChild(newCata);
     }
 }
 
@@ -52,7 +73,7 @@ const displayCategory = (categories) => {
         const newCata = document.createElement("div");
         newCata.innerHTML = `
           
-            <p class="hover:bg-[#15803D] hover:text-white p-2 w-full  rounded-md">${ca.category_name}</p>
+            <button id="category-${ca.id}" onclick="activeCategory(${ca.id})" class="hover:bg-[#15803D] hover:text-white p-2 w-full  rounded-md lg:text-left">${ca.category_name}</button>
             
         `
         categoryContainer.appendChild(newCata);

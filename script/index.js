@@ -51,9 +51,9 @@ const displayCategory = (categories) => {
 
         const newCata = document.createElement("div");
         newCata.innerHTML = `
-            <div>
-                <p class="hover:bg-[#15803D] hover:text-white p-2 w-full  rounded-md">${ca.category_name}</p>
-            </div>
+          
+            <p class="hover:bg-[#15803D] hover:text-white p-2 w-full  rounded-md">${ca.category_name}</p>
+            
         `
         categoryContainer.appendChild(newCata);
     }

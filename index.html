@@ -85,7 +85,7 @@
                 </div>
                 <div class="max-sm:hidden"><img src="assets/hero-leaf2.png" alt=""></div>
             </div>
-            <div class="flex justify-center lg:hidden ">
+            <div class="flex justify-center md:hidden ">
                 <img class="w-[50%]" src="assets/hero-leaf1.png" alt="">
                 <img class="w-[50%]" src="assets/hero-leaf2.png" alt="">
             </div>
@@ -98,11 +98,46 @@
             <h1 class="text-3xl font-semibold pb-10 text-center">Choose Your Trees</h1>
             <div class="flex max-sm:flex-col items-start gap-6">
                 <div>
-                    <h2 class="text-xl font-semibold py-3">Categories</h2>
-                    <div id="category-container" class="space-y-2 max-sm:flex max-sm:flex-wrap lg:w-50 ">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-semibold py-3">Categories</h2>
+                        <!-- Cart for Mobile (Dropdown like button) -->
+                        <div class="lg:hidden block">
+                            <div class="dropdown dropdown-end">
+                                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                                    <div class="indicator">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 
+                                            2.293c-.63.63-.184 1.707.707 1.707H17m0 
+                                            0a2 2 0 100 4 2 2 0 000-4zm-8 
+                                            2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                        <span class="badge badge-sm indicator-item" id="cart-count">0</span>
+                                    </div>
+                                </div>
+                                <div tabindex="0"
+                                    class="card card-compact dropdown-content bg-base-100 z-10 mt-3 w-64 shadow">
+                                    <div class="p-4 rounded-xl">
+                                        <h1 class="text-xl font-semibold py-3">Your Cart</h1>
+                                        <div id="cart-container-mobile" ></div>
+                                        <div
+                                            class="flex justify-between items-center border-t border-gray-300 my-2 py-1">
+                                            <h1 class="font-bold">Total:</h1>
+                                            <h1>
+                                                <i class="fa-solid fa-bangladeshi-taka-sign"></i>
+                                                <span id="total-mobile">0</span>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="category-container" class="space-y-2 max-sm:flex gap-2 max-sm:flex-wrap lg:w-50 ">
                         <div>
                             <button id="category-0" onclick="activeCategory(0)" id="allCategory"
-                                class="active hover:bg-[#537c5a] hover:text-white p-2 w-full  rounded-md lg:text-left">All
+                                class="active max-sm:shadow hover:bg-[#69796c] hover:text-white p-2 w-full  rounded-md lg:text-left">All
                                 Trees</button>
                         </div>
 
@@ -124,14 +159,14 @@
                 </div>
 
 
-                <div class="lg:max-w-75 w-full bg-white  p-4 rounded-xl">
+                <div class="lg:max-w-75 w-full bg-white  p-4 rounded-xl hidden lg:block">
                     <h1 class="text-xl font-semibold py-3">Your Cart</h1>
                     <div id="cart-container"></div>
                     <div class="flex justify-between items-center border-t border-gray-300 my-2 py-1">
                         <h1 class="font-bold">Total:</h1>
                         <h1><i class="fa-solid fa-bangladeshi-taka-sign"></i><span id="total">0</span></h1>
                     </div>
-                    
+
                 </div>
             </div>
         </section>
@@ -174,7 +209,7 @@
             <div class="modal-action">
                 <form method="dialog">
                     <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn">Close</button>
+                    <button class="btn bg-[#15803D] text-white rounded-3xl">Close</button>
                 </form>
             </div>
         </div>
@@ -189,15 +224,15 @@
         <div class="py-[100px] w-11/12 mx-auto">
             <h1 class="text-3xl font-semibold text-center pb-8">Our Impact</h1>
             <div class="grid lg:grid-cols-3 grid-cols-1 gap-10">
-                <div class="py-10 bg-white rounded-xl text-center">
+                <div class="py-10 bg-white rounded-xl text-center hover:bg-[#aed1b9]">
                     <h1 class="text-3xl font-semibold text-[#15803D]">500K+</h1>
                     <p class="text-[#1F2937] py-3">Trees Planted</p>
-                </div class="py-10 bg-white rounded-xl">
-                <div class="p-10 bg-white rounded-xl text-center">
-                    <h1 class="text-3xl font-semibold text-[#15803D]">120+</h1>
+                </div class="py-10 bg-white rounded-xl ">
+                <div class="p-10 bg-white rounded-xl text-center hover:bg-[#aed1b9]">
+                    <h1 class="text-3xl font-semibold text-[#15803d]">120+</h1>
                     <p class="text-[#1F2937] py-3">Communities Involved</p>
                 </div>
-                <div class="py-10 bg-white rounded-xl text-center">
+                <div class="py-10 bg-white rounded-xl text-center hover:bg-[#aed1b9]">
                     <h1 class="text-3xl font-semibold text-[#15803D]">30+</h1>
                     <p class="text-[#1F2937] py-3">Countries Reached</p>
                 </div>

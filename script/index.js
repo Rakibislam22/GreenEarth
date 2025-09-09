@@ -20,6 +20,8 @@ const allData = () => {
 // add to cart button
 let cratElement = [];
 const addToCart = (price, name) => {
+
+    alert('Item added to cart');
     const cartContainer = document.getElementById("cart-container");
     const totalW = document.getElementById("total").innerText;
 
@@ -32,7 +34,7 @@ const addToCart = (price, name) => {
                     <div class="flex justify-between items-center bg-[#F0FDF4] my-2 rounded-lg p-2">
                         <div>
                             <h1 class="font-bold">${name}</h1>
-                            <p class="text-[#1F2937]"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span>${price}</span> x <span id="incri">1</span></p>
+                            <p class="text-[#1F2937]"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span>${price}</span> x <span>1</span></p>
                         </div>
                         <div>
                             <button class=" cart-clear">❌</button>
@@ -47,15 +49,63 @@ const addToCart = (price, name) => {
     document.getElementById("total").innerText = total;
 
 
+    // for mobile cart item count
+    const cartContainerMobile = document.getElementById("cart-container-mobile");
+    const totalWMobile = document.getElementById("total-mobile").innerText;
 
+    const newElementMobile = document.createElement("div");
 
+    newElementMobile.innerHTML = ` 
+        
+                    <div class="flex justify-between items-center bg-[#F0FDF4] my-2 rounded-lg p-2">
+                        <div>
+                            <h1 class="font-bold">${name}</h1>
+                            <p class="text-[#1F2937]"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span>${price}</span> x <span>1</span></p>
+                        </div>
+                        <div>
+                            <p class="cart-clear" >❌</p>
+                        </div>
+                    </div>
+                    
+    
+        `;
+
+    cartContainerMobile.appendChild(newElementMobile);
+    let totalMobile = parseInt(totalWMobile) + parseInt(price);
+    document.getElementById("total-mobile").innerText = totalMobile;
+
+    // cart item count
+    document.getElementById("cart-count").innerText = cratElement.length;
+    
     //  remove element from cart
     const removeBtn = newElement.querySelector(".cart-clear");
     removeBtn.addEventListener("click", () => {
         newElement.remove();
-        //cratElement = cratElement.filter(item => item !== name);
         document.getElementById("total").innerText =
             (parseInt(document.getElementById("total").innerText) || 0) - price;
+        
+        newElementMobile.remove();
+        document.getElementById("total-mobile").innerText =
+            (parseInt(document.getElementById("total-mobile").innerText) || 0) - price;
+        
+        cratElement.pop();
+        document.getElementById("cart-count").innerText = cratElement.length;
+            
+    });
+
+    //  remove element from cart in mobile
+    const removeBtnMobile = newElementMobile.querySelector(".cart-clear");
+    removeBtnMobile.addEventListener("click", () => {
+        newElementMobile.remove();
+        document.getElementById("total-mobile").innerText =
+            (parseInt(document.getElementById("total-mobile").innerText) || 0) - price;
+        
+        newElement.remove();
+        document.getElementById("total").innerText =
+            (parseInt(document.getElementById("total").innerText) || 0) - price; 
+        
+        cratElement.pop();
+        document.getElementById("cart-count").innerText = cratElement.length;
     });
 }
 
@@ -119,7 +169,7 @@ const displayAllData = (plants) => {
                                 <p class="pr-2"><i class="fa-solid fa-bangladeshi-taka-sign"></i>${p.price}</p>
                             </div>
                         </div>
-                        <button onclick="addToCart(${p.price},'${p.name}')" class="btn bg-[#15803D] rounded-3xl w-full my-3 text-white">Add to Cart</button>
+                        <button onclick="addToCart(${p.price},'${p.name}')" class="hover:bg-[#025f25] btn bg-[#15803D] rounded-3xl w-full my-3 text-white">Add to Cart</button>
                     </div>
         `
         all_Plants.appendChild(newCata);
@@ -162,7 +212,7 @@ const displayCategory = (categories) => {
         const newCata = document.createElement("div");
         newCata.innerHTML = `
           
-            <button id="category-${ca.id}" onclick="activeCategory(${ca.id})" class="hover:bg-[#537c5a] hover:text-white p-2 w-full  rounded-md lg:text-left">${ca.category_name}</button>
+            <button id="category-${ca.id}" onclick="activeCategory(${ca.id})" class=" max-sm:shadow hover:bg-[#69796c] hover:text-white p-2 w-full  rounded-md lg:text-left">${ca.category_name}</button>
             
         `
         categoryContainer.appendChild(newCata);
